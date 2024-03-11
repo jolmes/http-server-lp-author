@@ -1,11 +1,16 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum Lang {
   English,
   Spanish,
   Chinese,
   Texan,
+  German,
+  Portuguese,
+  Swahili,
+  Japanese
 }
 
+#[derive(Debug, PartialEq)]
 struct Greeting {
     message: String,
     lang: Lang,
@@ -18,10 +23,13 @@ fn main() {
   v.push(g);
   let g : Greeting = Greeting { lang: Lang::Spanish, message: String::from("Hola WasmEdge!") };
   v.push(g);
-  let g : Greeting = Greeting { lang: Lang::Texan, message: String::from("Howdy WasmEdge!") };
+  let g : Greeting = Greeting { lang: Lang::Spanish, message: String::from("Howdy WasmEdge!") };
   v.push(g);
   let g : Greeting = Greeting { lang: Lang::Chinese, message: String::from("WasmEdge 你好!") };
   v.push(g);
+
+  let spanish_only: Vec<_> = v.iter().clone().filter(|x| matches!(x.lang, Lang::Spanish)).collect();
+  println!("{:?}", spanish_only);
 
   for e in v {
     println!("{:?} {}", e.lang, e.message);
